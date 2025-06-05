@@ -43,4 +43,64 @@ const activeButton = (id) => {
   id.classList.add("active");
 };
 
+// load all pets-card
+
+const loadPets = async () => {
+  const res = await fetch(
+    "https://openapi.programming-hero.com/api/peddy/pets"
+  );
+  const data = await res.json();
+  displayPets(data.pets);
+};
+
+const displayPets = (pets) => {
+  pets.forEach((pet) => {
+    const petContainer = document.getElementById("pet-card");
+    const card = document.createElement("div");
+    card.classList = "p-5 rounded-xl shadow-2xl border border-gray-100";
+
+    card.innerHTML = `
+    <div>
+    <img src="" alt="" />
+  </div>
+  <div class="">
+    <h1 class="text-xl font-bold">Mister Tartosh</h1>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/square.png" alt="" class="object-cover w-5 h-5" />
+      <span>Breed: Golder retriever</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/calender.png" alt="" class="object-cover w-5 h-5" />
+      <span>Birth: 2024</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/gender.png" alt="" class="object-cover w-5 h-5" />
+      <span>Gender: Female</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/price.png" alt="" class="object-cover w-5 h-5" />
+      <span>Price : 199$</span>
+    </div>
+  </div>
+  <div class="border border-gray-400"></div>
+  <div class="flex justify-between mt-6">
+    <div>
+      <button class="btn">
+        <img src="./images/like.png" alt="" />
+      </button>
+    </div>
+    <div>
+      <button class="btn text-teal-600 text-base">Adopt</button>
+    </div>
+    <div>
+      <button class="btn text-teal-600 text-base">Details</button>
+    </div>
+  </div>
+    `;
+
+    petContainer.append(card);
+  });
+};
+
+loadPets();
 loadCategories();

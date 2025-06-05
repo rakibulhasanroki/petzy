@@ -139,20 +139,16 @@
       </section>
       <!--pet-card section -->
       <section class="mt-10">
-        <div class="flex gap-5">
-          <div class="flex-1">
-            <div class="grid grid-cols-3 gap-5">
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-              <div class="w-[200px] h-[200px] bg-red-400"></div>
-            </div>
-          </div>
-          <div>
-            <div class="w-[300px] h-full bg-blue-400"></div>
-          </div>
+        <div class="flex gap-5 flex-col-reverse lg:flex-row">
+          <div
+            id="pet-card"
+            class="lg:w-9/12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          ></div>
+          <!-- pet-image -->
+          <div
+            id="pet-img"
+            class="lg:w-3/12 shadow-xl rounded-xl gap-4 p-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 lg:grid-flow-row xl:grid-cols-2 xl:grid-rows-6"
+          ></div>
         </div>
       </section>
     </main>
