@@ -1,0 +1,9 @@
+.font-lato {
+  font-family: "Lato", sans-serif;
+}
+
+.active {
+  border-radius: 24px;
+  border-color: teal;
+  background-color: #e7f2f2;
+}

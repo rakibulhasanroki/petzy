@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Petzy</title>
+    <link rel="stylesheet" href="./style.css" />
+    <!-- tailwind & daisyUi -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- google-font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font-awesome icons -->
+    <script
+      src="https://kit.fontawesome.com/5d970a6637.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="font-lato">
+    <header class="w-11/12 mx-auto">
+      <nav class="pt-8 flex justify-between items-center">
+        <!-- dropdown -->
+        <div class="md:hidden px-4">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-7 w-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-teal-600 rounded-box z-1 mt-3 w-52 p-2 shadow text-white"
+            >
+              <li><a>Home</a></li>
+              <li><a>Shop</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- dropdown ends -->
+        <div class="flex-1">
+          <div class="flex items-center gap-1">
+            <img src="./images/logo.webp" alt="" />
+            <h2 class="font-bold text-3xl">Petzy</h2>
+          </div>
+        </div>
+        <div class="flex-1 justify-items-center hidden md:block">
+          <ul class="flex text-base text-gray-600 gap-4">
+            <li><a href="">Home</a></li>
+            <li><a href="">Shop</a></li>
+            <li><a href="">Contact</a></li>
+          </ul>
+        </div>
+        <div class="flex-1 cursor-pointer justify-items-end">
+          <img src="./images/user.png" alt="" />
+        </div>
+      </nav>
+      <!-- hero-section -->
+      <section class="mt-10">
+        <div
+          class="text-center mx-auto md:w-8/12 lg:w-10/12 xl:w-8/12 2xl:w-6/12 space-y-4"
+        >
+          <h3 class="text-gray-400 font-bold md:text-2xl text-xl">
+            Bringing Families Together ❤️‍🔥
+          </h3>
+          <h1 class="lg:text-7xl text-4xl font-bold leading-tight">
+            Your Path to Adoption Starts Here
+          </h1>
+          <p>
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a.
+          </p>
+          <button
+            class="btn md:text-xl font-bold text-white bg-teal-600 py-6 px-8 rounded-xl"
+          >
+            View More
+          </button>
+        </div>
+        <div class="flex justify-center mt-2">
+          <img src="./images/pet.webp" alt="" />
+        </div>
+      </section>
+    </header>
+    <main class="w-11/12 mx-auto">
+      <!-- Adopt your best friend -->
+      <section class="mt-20">
+        <div class="lg:w-6/12 mx-auto text-center">
+          <h1 class="text-4xl font-bold">Adopt Your Best Friend</h1>
+          <p class="text-gray-500 text-base mt-4">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a.
+          </p>
+        </div>
+      </section>
+      <!-- dynamic categories button -->
+      <section class="mb-8">
+        <div
+          class="mt-10 grid grid-cols-1 md:grid-cols-4 gap-4"
+          id="categories"
+        ></div>
+      </section>
+      <!-- sorting section -->
+      <section class="mt-10">
+        <div class="flex justify-between items-center flex-col md:flex-row">
+          <div><h1 class="text-2xl font-bold">Best Deal For you</h1></div>
+          <div>
+            <button
+              class="btn bg-teal-600 text-white rounded-xl text-xl px-8 py-6"
+            >
+              Sort by Price
+            </button>
+          </div>
+        </div>
+      </section>
+      <!--pet-card section -->
+      <section class="mt-10">
+        <div class="flex gap-5">
+          <div class="flex-1">
+            <div class="grid grid-cols-3 gap-5">
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+              <div class="w-[200px] h-[200px] bg-red-400"></div>
+            </div>
+          </div>
+          <div>
+            <div class="w-[300px] h-full bg-blue-400"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- footer -->
+    <footer class="bg-gray-900 py-20 mt-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 w-11/12 mx-auto gap-8">
+        <div class="space-y-6 lg:justify-self-start">
+          <div class="flex items-center gap-1">
+            <img src="./images/logo.webp" alt="" />
+            <h2 class="font-bold text-3xl text-white">Petzy</h2>
+          </div>
+          <div class="text-white text-xs space-y-4">
+            <p>Location: av. Washington 165, NY CA 54003</p>
+            <p>Phone: +31 85 964 47 25</p>
+            <p>Email: info@yourdomain.com</p>
+            <p>Openings hours: 9.00 AM - 5.00 PM</p>
+          </div>
+          <div class="flex items-center gap-5">
+            <img
+              src="https://img.icons8.com/?size=100&id=uLWV5A9vXIPu&format=png&color=000000"
+              alt=""
+              class="w-10 h-10 object-cover"
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=ClbD5JTFM7FA&format=png&color=000000"
+              alt=""
+              class="w-10 h-10 object-cover"
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=19318&format=png&color=000000"
+              alt=""
+              class="w-10 h-10 object-cover"
+            />
+            <img
+              src="https://img.icons8.com/?size=100&id=BrU2BBoRXiWq&format=png&color=000000"
+              alt=""
+              class="w-10 h-10 object-cover"
+            />
+          </div>
+        </div>
+        <div class="space-y-6 lg:justify-items-center">
+          <h1 class="text-base text-white font-bold">Useful Links</h1>
+          <div class="space-y-4 text-gray-300 text-xs>
+          <p><a href="">Home</a></p>
+          <p><a href="">About Us</a></p>
+          <p><a href="">Animals</a></p>
+          <p><a href="">Foundation</a></p>
+          <p><a href="">Contact</a></p>
+        </div>
+      </div>
+      <div class="space-y-6 lg:justify-self-end">
+        <h1 class="text-white text-base font-bold">Drop a Message</h1>
+        <div class="space-y-4">
+          <input
+            type="text"
+            placeholder="Enter Your Email"
+            class="input block"
+          />
+          <button
+            class="btn bg-teal-600 text-white rounded-xl text-xl px-8 py-6"
+          >
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </footer>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
