@@ -72,7 +72,16 @@ const displayPets = (pets) => {
   if (pets == "") {
     petContainer.classList.remove("grid");
     petContainer.innerHTML = `
-    <h1 class="text-center text-4xl font-bold">No Content Here</h1>
+    <div class=" bg-gray-100 shadow-lg md:p-20 p-10 flex justify-center flex-col items-center rounded-lg text-center">
+    <div>
+    <img src="./images/no-info.png"/>
+    </div>
+    <div>
+    <h1 class="text-3xl font-bold">No Information Available</h1>
+    <p class="text-gray-400 text-base">It is a long established fact that a reader will be distracted by the readable content of a page when looking at 
+      its layout. The point of using Lorem Ipsum is that it has a.</p>
+    </div>
+    </div>
     
     `;
   } else {
@@ -124,7 +133,9 @@ const displayPets = (pets) => {
       <button class="btn text-teal-600 text-base">Adopt</button>
     </div>
     <div>
-      <button class="btn text-teal-600 text-base">Details</button>
+      <button class="btn text-teal-600 text-base"   onclick="showModal(${
+        pet.petId
+      }); customModal.showModal();">Details</button>
     </div>
   </div>
     </div>
@@ -156,6 +167,56 @@ const likedPhoto = (petId) => {
   petImg.classList = "";
 
   petImgConatiner.append(petImg);
+};
+
+const showModal = async (pet_id) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/pet/${pet_id}`
+  );
+
+  const data = await res.json();
+  const pet = data.petData;
+  console.log(pet);
+  const modalContainer = document.getElementById("modal-content");
+
+  modalContainer.innerHTML = `
+  <div class="p-4">
+    <div>
+    <img src=${
+      pet.image
+    } alt="" class="w-full h-full object-cover rounded-lg" />
+  </div>
+  <div class="mt-4">
+    <h1 class="text-xl font-bold">${pet.pet_name}</h1>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/square.png" alt="" class="object-cover w-5 h-5" />
+      <span>Breed:${pet.breed}</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/calender.png" alt="" class="object-cover w-5 h-5" />
+      <span>${pet.date_of_birth}</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/gender.png" alt="" class="object-cover w-5 h-5" />
+      <span>Gender: ${pet.gender}</span>
+    </div>
+    <div class="flex gap-1 items-center text-gray-400 text-base">
+      <img src="./images/price.png" alt="" class="object-cover w-5 h-5" />
+     ${
+       pet.price === null
+         ? "No price tag added"
+         : ` <span>Price : <span>${pet.price}</span> $</span>`
+     }
+    </div>
+  </div>
+  <div class="border border-gray-300"></div>
+  <div>
+  <h3>Details Information</h3>
+  <p>${pet.pet_details}</p>
+  </div>
+
+  
+  `;
 };
 
 loadPets();
