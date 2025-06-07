@@ -24,8 +24,8 @@ const displayCategories = (categories) => {
     }
 
     btnConatiner.innerHTML = `
-     <button id=${pet.id} class="w-full lg:w-[200px] xl:w-[264px] btn rounded-xl text-2xl font-bold px-12 py-10 categories"
-     onclick="activeButton(this)"
+     <button id=${pet.id}  class="w-full lg:w-[200px] xl:w-[264px] btn rounded-xl text-2xl font-bold px-12 py-10 categories"
+     onclick="activeButton(this); categoriesName('${pet.category}');"
      >
       <img src=${pet.category_icon}   alt="" />
         <span>${pet.category}</span>
@@ -35,6 +35,18 @@ const displayCategories = (categories) => {
     categoriesSection.append(btnConatiner);
   });
 };
+
+// display pet by categories
+
+const categoriesName = async (categoryName) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`
+  );
+  const data = await res.json();
+  sortByPrice(data.data);
+  displayPets(data.data);
+};
+
 const activeButton = (e) => {
   const getButtons = document.getElementsByClassName("categories");
   for (const btn of getButtons) {
@@ -54,24 +66,20 @@ const loadPets = async () => {
   sortByPrice(data.pets);
 };
 
-// {
-//   "petId": 1,
-//   "breed": "Golden Retriever",
-//   "category": "Dog",
-//   "date_of_birth": "2023-01-15",
-//   "price": 1200,
-//   "image": "https://i.ibb.co.com/p0w744T/pet-1.jpg",
-//   "gender": "Male",
-//   "pet_details": "This friendly male Golden Retriever is energetic and loyal, making him a perfect companion for families. Born on January 15, 2023, he enjoys playing outdoors and is especially great with children. Fully vaccinated, he's ready to join your family and bring endless joy. Priced at $1200, he offers love, loyalty, and a lively spirit for those seeking a playful yet gentle dog.",
-//   "vaccinated_status": "Fully",
-//   "pet_name": "Sunny"
-// }
-
 const displayPets = (pets) => {
   const petContainer = document.getElementById("pet-card");
   petContainer.innerHTML = "";
+  if (pets == "") {
+    petContainer.classList.remove("grid");
+    petContainer.innerHTML = `
+    <h1 class="text-center text-4xl font-bold">No Content Here</h1>
+    
+    `;
+  } else {
+    petContainer.classList.add("grid");
+  }
+
   pets.forEach((pet) => {
-    // console.log(pet);
     const card = document.createElement("div");
     card.classList = "p-5 rounded-xl shadow-2xl border border-gray-100";
 
@@ -142,10 +150,11 @@ const likedPhoto = (petId) => {
   const img = imgdiv.querySelector("img").cloneNode(true);
 
   const petImgConatiner = document.getElementById("pet-img");
+
   const petImg = document.createElement("div");
   petImg.append(img);
   petImg.classList = "";
-  console.log(petImg);
+
   petImgConatiner.append(petImg);
 };
 
