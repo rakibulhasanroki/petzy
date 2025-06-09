@@ -144,7 +144,11 @@
           <div
             id="pet-card"
             class="lg:w-9/12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-          ></div>
+          >
+            <div class="hidden justify-center" id="loading">
+              <span class="loading loading-bars loading-xl"></span>
+            </div>
+          </div>
           <!-- pet-image -->
           <div
             id="pet-img"
@@ -220,7 +224,9 @@
     <!-- modal -->
     <!-- Open the modal using ID.showModal() method -->
     <!-- Open the modal using ID.showModal() method -->
-    <button class="btn" onclick="customModal.showModal()">open modal</button>
+    <button class="btn hidden" onclick="customModal.showModal()">
+      open modal
+    </button>
     <dialog id="customModal" class="modal">
       <div class="modal-box">
         <div id="modal-content"></div>

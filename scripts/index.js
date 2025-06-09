@@ -25,7 +25,7 @@ const displayCategories = (categories) => {
 
     btnConatiner.innerHTML = `
      <button id=${pet.id}  class="w-full lg:w-[200px] xl:w-[264px] btn rounded-xl text-2xl font-bold px-12 py-10 categories"
-     onclick="activeButton(this); categoriesName('${pet.category}');"
+     onclick="activeButton(this,'${pet.category}')"
      >
       <img src=${pet.category_icon}   alt="" />
         <span>${pet.category}</span>
@@ -36,6 +36,28 @@ const displayCategories = (categories) => {
   });
 };
 
+// spiner
+const withSpinner = async (newFunction) => {
+  const loading = document.createElement("div");
+  const petContainer = document.getElementById("pet-card");
+  petContainer.innerHTML = "";
+  loading.classList = "flex justify-center";
+  loading.innerHTML = `
+  <span class="loading loading-bars loading-xl"></span>
+  `;
+  petContainer.classList.remove("grid");
+  petContainer.append(loading);
+
+  const delayed = new Promise((resolve) => setTimeout(resolve, 2000));
+  const [data] = await Promise.all([newFunction(), delayed]);
+
+  if (data.pets) {
+    displayPets(data.pets);
+  } else if (data.data) {
+    displayPets(data.data);
+  }
+};
+
 // display pet by categories
 
 const categoriesName = async (categoryName) => {
@@ -44,10 +66,12 @@ const categoriesName = async (categoryName) => {
   );
   const data = await res.json();
   sortByPrice(data.data);
-  displayPets(data.data);
+  return data;
 };
 
-const activeButton = (e) => {
+// withSpinner(categoriesName);
+const activeButton = (e, categoryName) => {
+  withSpinner(() => categoriesName(categoryName));
   const getButtons = document.getElementsByClassName("categories");
   for (const btn of getButtons) {
     btn.classList.remove("active");
@@ -62,8 +86,8 @@ const loadPets = async () => {
     "https://openapi.programming-hero.com/api/peddy/pets"
   );
   const data = await res.json();
-  displayPets(data.pets);
   sortByPrice(data.pets);
+  return data;
 };
 
 const displayPets = (pets) => {
@@ -180,8 +204,8 @@ const showModal = async (pet_id) => {
   const modalContainer = document.getElementById("modal-content");
 
   modalContainer.innerHTML = `
-  <div class="p-4">
-    <div>
+
+  <div>
     <img src=${
       pet.image
     } alt="" class="w-full h-full object-cover rounded-lg" />
@@ -210,14 +234,17 @@ const showModal = async (pet_id) => {
     </div>
   </div>
   <div class="border border-gray-300"></div>
-  <div>
-  <h3>Details Information</h3>
+  <div class="space-y-2">
+  <h3 class="text-base font-bold">Details Information</h3>
   <p>${pet.pet_details}</p>
   </div>
 
   
   `;
 };
+
+withSpinner(loadPets);
+// withSpinner(categoriesName);
 
 loadPets();
 loadCategories();
