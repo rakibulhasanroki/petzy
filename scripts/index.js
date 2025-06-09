@@ -154,7 +154,7 @@ const displayPets = (pets) => {
       </button>
     </div>
     <div>
-      <button class="btn text-teal-600 text-base">Adopt</button>
+      <button class="btn text-teal-600 text-base"  onclick="adopted(this)">Adopt</button>
     </div>
     <div>
       <button class="btn text-teal-600 text-base"   onclick="showModal(${
@@ -241,6 +241,34 @@ const showModal = async (pet_id) => {
 
   
   `;
+};
+
+const adopted = (adoptButton) => {
+  const countdown = document.getElementById("countdown");
+  adoptButton.innerText = "Adopted";
+  adoptButton.disabled = true;
+  adoptButton.style.backgroundColor = "#aaa";
+  adoptButton.style.cursor = "not-allowed";
+  countdown.innerHTML = `
+  
+   <div class="w-full h-full bg-black fixed opacity-80"></div>
+  <div
+    class="w-[300px] h-[300px] inset-0 m-auto bg-white fixed  rounded-lg flex justify-center flex-col items-center"
+  >
+    <h1 class="text-3xl font-bold">Processing</h1>
+    <p class="text-3xl font-bold" id="sec"></p>
+  </div>
+  
+  `;
+  let timeLeft = 3;
+
+  const interval = setInterval(() => {
+    sec.innerText = timeLeft--;
+    if (timeLeft < 0) {
+      clearInterval(interval);
+      countdown.innerHTML = "";
+    }
+  }, 1000);
 };
 
 withSpinner(loadPets);
