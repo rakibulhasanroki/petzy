@@ -65,6 +65,7 @@ const categoriesName = async (categoryName) => {
     `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`
   );
   const data = await res.json();
+
   sortByPrice(data.data);
   return data;
 };
@@ -131,16 +132,24 @@ const displayPets = (pets) => {
     </div>
     <div class="flex gap-1 items-center text-gray-400 text-base">
       <img src="./images/calender.png" alt="" class="object-cover w-5 h-5" />
-      <span>${pet.date_of_birth}</span>
+       ${
+         pet.date_of_birth === null || pet.date_of_birth === undefined
+           ? "No info available"
+           : ` <span><span>${pet.date_of_birth}</span></span>`
+       }
     </div>
     <div class="flex gap-1 items-center text-gray-400 text-base">
       <img src="./images/gender.png" alt="" class="object-cover w-5 h-5" />
-      <span>Gender: ${pet.gender}</span>
+       ${
+         pet.gender === null || pet.gender === undefined
+           ? "No info available"
+           : ` <span>Gender : <span>${pet.gender}</span></span>`
+       }
     </div>
     <div class="flex gap-1 items-center text-gray-400 text-base">
       <img src="./images/price.png" alt="" class="object-cover w-5 h-5" />
      ${
-       pet.price === null
+       pet.price === null || pet.price === undefined
          ? "No price tag added"
          : ` <span>Price : <span>${pet.price}</span> $</span>`
      }
@@ -154,7 +163,9 @@ const displayPets = (pets) => {
       </button>
     </div>
     <div>
-      <button class="btn text-teal-600 text-base"  onclick="adopted(this)">Adopt</button>
+      <button id="adopt-${
+        pet.petId
+      }" class="btn text-teal-600 text-base"  onclick="adopted(this);">Adopt</button>
     </div>
     <div>
       <button class="btn text-teal-600 text-base"   onclick="showModal(${
@@ -167,6 +178,7 @@ const displayPets = (pets) => {
 
     petContainer.append(card);
   });
+  displaySessionStorage();
 };
 
 // sort by price
@@ -174,8 +186,10 @@ const displayPets = (pets) => {
 const sortByPrice = (pets) => {
   const sortButton = document.getElementById("sort-btn");
   sortButton.addEventListener("click", () => {
-    pets.sort((a, b) => b.price - a.price);
-    displayPets(pets);
+    if (!!sortButton) {
+      pets.sort((a, b) => b.price - a.price);
+      displayPets(pets);
+    }
   });
 };
 
@@ -184,13 +198,24 @@ const likedPhoto = (petId) => {
   const imgdiv = getPet.querySelector("div");
   const img = imgdiv.querySelector("img").cloneNode(true);
 
+  const imgSrc = img.src;
+  const btnId = getPet.id;
+
   const petImgConatiner = document.getElementById("pet-img");
-
   const petImg = document.createElement("div");
-  petImg.append(img);
-  petImg.classList = "";
 
-  petImgConatiner.append(petImg);
+  petImg.id = `liked-${petId}`;
+  const likeId = petImg.id;
+
+  if (document.getElementById(likeId)) {
+    return;
+  } else {
+    petImg.append(img);
+    petImgConatiner.append(petImg);
+    const getItem = getPhotoStorage();
+    getItem[btnId] = imgSrc;
+    sessionStorage.setItem("photo", JSON.stringify(getItem));
+  }
 };
 
 const showModal = async (pet_id) => {
@@ -244,6 +269,7 @@ const showModal = async (pet_id) => {
 };
 
 const adopted = (adoptButton) => {
+  console.log(adoptButton);
   const countdown = document.getElementById("countdown");
   adoptButton.innerText = "Adopted";
   adoptButton.disabled = true;
@@ -269,10 +295,90 @@ const adopted = (adoptButton) => {
       countdown.innerHTML = "";
     }
   }, 1000);
+  setSessionStorage(adoptButton);
+};
+// for adopt button storage
+const setSessionStorage = (btn) => {
+  const getItem = getSessionStorage();
+  const id = btn.id;
+  getItem[id] = {
+    innerText: btn.innerText,
+    disabled: btn.disabled,
+    bgColor: btn.style.backgroundColor,
+  };
+  sessionStorage.setItem("adopt", JSON.stringify(getItem));
 };
 
-withSpinner(loadPets);
-// withSpinner(categoriesName);
+const getSessionStorage = () => {
+  let emptyObj = {};
+  const getItem = sessionStorage.getItem("adopt");
+  if (getItem) {
+    emptyObj = JSON.parse(getItem);
+  }
 
-loadPets();
+  return emptyObj;
+};
+
+const displaySessionStorage = () => {
+  const storage = getSessionStorage();
+
+  for (let id in storage) {
+    const peserveItem = storage[id];
+    const btnId = document.getElementById(id);
+    if (!btnId) {
+      continue;
+    }
+    btnId.innerText = peserveItem.innerText;
+    btnId.style.backgroundColor = peserveItem.bgColor;
+    btnId.disabled = peserveItem.disabled;
+  }
+};
+// for photos storage
+const setPhotoStorage = (btn) => {};
+
+const getPhotoStorage = () => {
+  let obj = {};
+  let getItem = sessionStorage.getItem("photo");
+  if (getItem) {
+    obj = JSON.parse(getItem);
+  }
+
+  return obj;
+};
+
+const displayPhotoSTorage = () => {
+  const storage = getPhotoStorage();
+  for (id in storage) {
+    const imgSrc = storage[id];
+
+    const img = document.createElement("img");
+    img.src = imgSrc;
+    img.classList = "rounded-xl";
+    const petImgConatiner = document.getElementById("pet-img");
+
+    const petImg = document.createElement("div");
+
+    const likedId = id.replace("pet", "liked");
+    petImg.id = likedId;
+    petImg.append(img);
+    petImgConatiner.append(petImg);
+  }
+};
+
+const removePhoto = () => {
+  const imgContainer = document.getElementById("pet-img");
+  imgContainer.addEventListener("click", (e) => {
+    const clikedItem = e.target.parentElement;
+    const likedId = clikedItem.id;
+    const petId = likedId.replace("liked", "pet");
+    const getItem = getPhotoStorage();
+    delete getItem[petId];
+
+    sessionStorage.setItem("photo", JSON.stringify(getItem));
+    clikedItem.remove();
+  });
+};
+displayPhotoSTorage();
+withSpinner(loadPets);
 loadCategories();
+removePhoto();
