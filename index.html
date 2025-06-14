@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -55,9 +55,9 @@
               tabindex="0"
               class="menu menu-sm dropdown-content bg-teal-600 rounded-box z-1 mt-3 w-52 p-2 shadow text-white"
             >
-              <li><a>Home</a></li>
-              <li><a>Shop</a></li>
-              <li><a>Contact</a></li>
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="#shop">Shop</a></li>
+              <li><a href="#contact">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -70,9 +70,9 @@
         </div>
         <div class="flex-1 justify-items-center hidden md:block">
           <ul class="flex text-base text-gray-600 gap-4">
-            <li><a href="">Home</a></li>
-            <li><a href="">Shop</a></li>
-            <li><a href="">Contact</a></li>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         <div class="flex-1 cursor-pointer justify-items-end">
@@ -140,7 +140,7 @@
         </div>
       </section>
       <!--pet-card section -->
-      <section class="mt-10">
+      <section class="mt-10" id="shop">
         <div class="flex gap-5 flex-col-reverse lg:flex-row">
           <div
             id="pet-card"
@@ -159,7 +159,7 @@
       </section>
     </main>
     <!-- footer -->
-    <footer class="bg-gray-900 py-20 mt-10">
+    <footer id="contact" class="bg-gray-900 py-20 mt-10">
       <div class="grid grid-cols-1 md:grid-cols-3 w-11/12 mx-auto gap-8">
         <div class="space-y-6 lg:justify-self-start">
           <div class="flex items-center gap-1">

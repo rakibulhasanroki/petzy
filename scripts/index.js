@@ -378,7 +378,7 @@ const removePhoto = () => {
     clikedItem.remove();
   });
 };
-displayPhotoSTorage();
 withSpinner(loadPets);
 loadCategories();
+displayPhotoSTorage();
 removePhoto();
